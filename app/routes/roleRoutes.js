@@ -4,14 +4,13 @@ const db = require('../config/database');
 const router = express.Router();
 const { authenticateToken } = require('../middleware/authenticateToken');
 
-router.post('/RoleRegister',authenticateToken, async (req, res) =>{
+router.post('/RoleRegister', async (req, res) =>{
 
     try {
 
-        const { role_code ,role_name} = req.body;
-    
-        const insertUserQuery = 'INSERT INTO roles ( role_code, role_name ) VALUES (?,?)';
-        await db.promise().execute(insertUserQuery,[ role_code, role_name]);
+        const {role_name} = req.body;
+        const insertUserQuery = 'INSERT INTO roles (role_name) VALUES (?)';
+        await db.promise().execute(insertUserQuery,[role_name]);
 
         res.status(201).json({ message: 'Role registered succesfully'});
     } catch (error) {
