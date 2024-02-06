@@ -84,7 +84,7 @@ let users_id =req.params.id;
 const {description, evaluation_id} = req.body;
 
 if(!users_id || !description || !evaluation_id ){
-    return res.status(400).send({ error: users_id , message: 'Please provide  role_code, role_name'});
+    return res.status(400).send({ error: users_id , message: 'Please provide  description and evaluation_id'});
 }
 
 try{

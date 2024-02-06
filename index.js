@@ -17,6 +17,8 @@ const bodyParser = require('body-parser');
 const UsersRoutes = require('./app/routes/user');
 const RolesRoutes = require('./app/routes/roleRoutes');
 const IndicatorRoutes = require('./app/routes/indicatorRoutes');
+const PublicationRoutes = require('./app/routes/publicationRoutes');
+const DocumentRoutes = require('./app/routes/DocumentsRoutes');
 
 app.use("/assets",express.static("assets"));
 
@@ -41,6 +43,10 @@ app.use('/api', UsersRoutes);
 app.use('/api', RolesRoutes);
 //indicatorRoute
 app.use('/api', IndicatorRoutes);
+//publicationRoutes
+app.use('/api', PublicationRoutes);
+//docuRoutes
+app.use('/api', DocumentRoutes);
  
 
 app.get('/', (req, res) => {
