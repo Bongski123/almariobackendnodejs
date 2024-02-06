@@ -16,17 +16,19 @@ app.use(bodyParser.json());
 
 const db = require('../config/database');
 
+
+
 //DOCUMENT REGISTRY
 
 router.post('/DocuReg', async (req, res) =>{
 
     try {
 
-        const {document_name, document_type ,project_id} = req.body;
+        const {document_name, document_type, project_id} = req.body;
         
 
-        const insertUserQuery = 'INSERT INTO documents (document_name, document_type,project_id) VALUES (?, ?, ?)';
-        await db.promise().execute(insertUserQuery,[document_name, document_type,project_id]);
+        const insertDocumentQuery = 'INSERT INTO documents (document_name, document_type,project_id) VALUES (?, ?, ?)';
+        await db.promise().execute(insertDocumentQuery,[document_name, document_type, project_id]);
 
         res.status(201).json({ message: 'Document registered succesfully'});
     } catch (error) {
