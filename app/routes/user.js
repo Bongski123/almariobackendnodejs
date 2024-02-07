@@ -22,11 +22,11 @@ router.post('/register', async (req, res) =>{
 
     try {
 
-        const {name, username,email,password,role_id} = req.body;
+        const {name, student_id,email,password,role_id} = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const insertUsersQuery = 'INSERT INTO users (name,username,email,password,role_id) VALUES (?,?,?,?,?)';
-        await db.promise().execute(insertUsersQuery,[name, username,email,hashedPassword,role_id]);
+        const insertUsersQuery = 'INSERT INTO users (name,student_id,email,password,role_id) VALUES (?,?,?,?,?)';
+        await db.promise().execute(insertUsersQuery,[name, student_id,email,hashedPassword,role_id]);
 
         res.status(201).json({ message: 'User registered succesfully'});
     } catch (error) {
@@ -44,10 +44,10 @@ router.post('/register', async (req, res) =>{
 router.post('/login', async(req, res)=>{
 
     try {
-        const {username, password} = req.body;
+        const {student_id, password} = req.body;
 
-        const getUserQuery = 'SELECT * FROM users WHERE username = ?';
-        const[row] = await db.promise().execute(getUserQuery,[username]);
+        const getUserQuery = 'SELECT * FROM users WHERE student_id = ?';
+        const[row] = await db.promise().execute(getUserQuery,[student_id]);
 
         if(row.length === 0){
             return res.status(401).json({Error: 'Invalid username or password'});
@@ -61,7 +61,7 @@ router.post('/login', async(req, res)=>{
 
         }
 
-        const token = jwt.sign({userId: user.id, username: user.username}, secretKey,{ expiresIn: '24h'});
+        const token = jwt.sign({userId: user.id, student_id: user.student_id}, secretKey,{ expiresIn: '24h'});
 
         res.status(200).json({token});
 
