@@ -28,7 +28,7 @@ router.post('/RoleRegister', async (req, res) =>{
 
         try {
     
-            db.query('SELECT role_id, role_code ,role_name FROM roles', (err , result)=> {
+            db.query('SELECT role_id,role_name FROM roles', (err , result)=> {
                 
                 if(err){
                     console.error('Error fetching items:', err);
