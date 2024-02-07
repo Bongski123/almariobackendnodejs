@@ -52,7 +52,7 @@ router.post('/RoleRegister', async (req, res) =>{
     
         try{
     
-            db.query('SELECT role_id, role_code, role_name FROM role WHERE role_id = ?', role_id, (err, result)=>{
+            db.query('SELECT role_id,role_name FROM role WHERE role_id = ?', role_id, (err, result)=>{
     
                 if(err){
                     console.error('Error fetcing items:', err);
@@ -73,14 +73,14 @@ router.put('/roleupdate/:id', authenticateToken, async(req, res)=>{
 
     let role_id =req.params.id;
 
-    const {role_code, role_name} = req.body;
+    const { role_name} = req.body;
 
-    if(!role_id || !role_code || !role_name ){
+    if(!role_id || !role_name ){
         return res.status(400).send({ error: role , message: 'Please provide  role_code, role_name'});
     }
 
     try{
-        db.query('UPDATE role SET role_code = ? , role_name =?  WHERE role_id =?', [role_code ,role_name, role_id],(err, result, field) =>{
+        db.query('UPDATE role SET  role_name =?  WHERE role_id =?', [role_name, role_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
