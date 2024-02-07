@@ -69,7 +69,7 @@ router.get('/department/:id', authenticateToken, (req, res)=> {
 
     try{
 
-        db.query('SELECT department_id, department_name FROM users  WHERE department_id = ?', department_id, (err, result)=>{
+        db.query('SELECT department_id, department_name FROM departments  WHERE department_id = ?', department_id, (err, result)=>{
 
             if(err){
                 console.error('Error fetcing items:', err);
