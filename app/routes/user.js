@@ -108,7 +108,7 @@ router.get('/user/:id', authenticateToken, (req, res)=> {
 
     try{
 
-        db.query('SELECT user_id, name, username , role_id FROM users  WHERE user_id = ?', user_id, (err, result)=>{
+        db.query('SELECT user_id, name ,student_id,email,password,role_id FROM users  WHERE user_id = ?', user_id, (err, result)=>{
 
             if(err){
                 console.error('Error fetcing items:', err);
