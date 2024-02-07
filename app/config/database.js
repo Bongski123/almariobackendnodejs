@@ -2,11 +2,10 @@
 const mysql = require('mysql2');
 
 const db = mysql.createPool({
-    host: 'bymnmcqxjefqme4meshj-mysql.services.clever-cloud.com',
-    user: 'u4ni2476ossgpkei',
-    password: 'mQ73m4IjPEgCu0happFB',
-    database: 'bymnmcqxjefqme4meshj',
-
+    host: 'sql6.freesqldatabase.com',
+    user: 'sql6681336',
+    password: 'M8rzqbeAXv',
+    database: 'sql6681336',
 
 });
   
