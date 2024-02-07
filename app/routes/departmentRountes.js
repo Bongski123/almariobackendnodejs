@@ -25,7 +25,7 @@ router.post('/deptreg', async (req, res) =>{
         const {department_name} = req.body;
     
         const insertUsersQuery = 'INSERT INTO departments (department_name) VALUES (?)';
-        await db.promise().execute(insertUsersQuery,[department_name,user_id]);
+        await db.promise().execute(insertUsersQuery,[department_name]);
 
         res.status(201).json({ message: 'User Department succesfully'});
     } catch (error) {
