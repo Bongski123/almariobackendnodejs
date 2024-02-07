@@ -12,6 +12,7 @@ const UsersRoutes = require('./app/routes/user');
 const RolesRoutes = require('./app/routes/roleRoutes');
 const PublicationRoutes = require('./app/routes/publicationRoutes');
 const DocumentRoutes = require('./app/routes/DocumentsRoutes');
+const departmentRoutes = require('./app/routes/departmentRountes');
 app.use("/assets",express.static("assets"));
 app.use(bodyParser.json());
 app.use('/api', UsersRoutes);
@@ -22,6 +23,9 @@ app.use('/api', RolesRoutes);
 app.use('/api', PublicationRoutes);
 //docuRoutes
 app.use('/api', DocumentRoutes);
+
+app.use('/api', departmentRoutes);
+ 
  
 
 app.get('/', (req, res) => {
