@@ -128,15 +128,15 @@ router.put('/user/:id', authenticateToken, async(req, res)=>{
 
     let user_id =req.params.id;
 
-    const {name, username, password} = req.body;
+    const {name, student_id,email, password,role_id} = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    if(!user_id || !name || !username || !password ){
+    if(!user_id || !name || !student_id || !email || !password || role_id){
         return res.status(400).send({ error: user , message: 'Please provide name, username and password'});
     }
 
     try{
-        db.query('UPDATE users SET name = ? , username =?, password =? WHERE user_id =?', [name, username,hashedPassword, user_id],(err, result, field) =>{
+        db.query('UPDATE users SET name = ? ,student_id =? ,email =?,password =? ,role_id = ? WHERE user_id =?', [name, student_id,email,hashedPassword,role_id, user_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
