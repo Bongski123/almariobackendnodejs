@@ -131,8 +131,8 @@ router.put('/user/:id', authenticateToken, async(req, res)=>{
     const {name, student_id,email, password,role_id} = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    if(!user_id || !name || !student_id || !email || !password || role_id){
-        return res.status(400).send({ error: user , message: 'Please provide name, username and password'});
+    if(!user_id || !name || !student_id || !email || !password || !role_id){
+        return res.status(400).send({ error: users, message: 'Please provide name, username and password'});
     }
 
     try{
