@@ -27,11 +27,11 @@ router.post('/deptreg', async (req, res) =>{
         const insertUsersQuery = 'INSERT INTO departments (department_name) VALUES (?)';
         await db.promise().execute(insertUsersQuery,[department_name]);
 
-        res.status(201).json({ message: 'User Department succesfully'});
+        res.status(201).json({ message: 'Register Department succesfully'});
     } catch (error) {
 
         console.error('Error registering user:', error);
-        res.status(500).json({ error: 'Username is already used'});
+        res.status(500).json({ error: 'Department is already used'});
     }
 
 
@@ -41,11 +41,11 @@ router.post('/deptreg', async (req, res) =>{
 
 
 //GET ALL THE USERS
-router.get('/users', authenticateToken, (req, res) => {
+router.get('/departments', authenticateToken, (req, res) => {
 
     try {
 
-        db.query('SELECT user_id, name ,student_id,email,password,role_id FROM users', (err , result)=> {
+        db.query('SELECT department_id, department_name FROM departments', (err , result)=> {
             
             if(err){
                 console.error('Error fetching items:', err);
@@ -61,15 +61,15 @@ router.get('/users', authenticateToken, (req, res) => {
 });
 
 //GET DETAILS OF 1 USER
-router.get('/user/:id', authenticateToken, (req, res)=> {
-    let user_id =req.params.id;
-    if(!user_id){
+router.get('/department/:id', authenticateToken, (req, res)=> {
+    let department_id =req.params.id;
+    if(!department_id){
         return res.status(400).send({ error: true, message: 'Please provide user_id'});
     }
 
     try{
 
-        db.query('SELECT user_id, name ,student_id,email,password,role_id FROM users  WHERE user_id = ?', user_id, (err, result)=>{
+        db.query('SELECT department_id, department_name FROM users  WHERE department_id = ?', department_id, (err, result)=>{
 
             if(err){
                 console.error('Error fetcing items:', err);
@@ -85,19 +85,19 @@ router.get('/user/:id', authenticateToken, (req, res)=> {
 });
 
 //UPDATE USER
-router.put('/user/:id', authenticateToken, async(req, res)=>{
+router.put('/departmentupdate/:id', authenticateToken, async(req, res)=>{
 
-    let user_id =req.params.id;
+    let department_id =req.params.id;
 
-    const {name, student_id,email, password,role_id} = req.body;
+    const {department_name} = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    if(!user_id || !name || !student_id || !email || !password || !role_id){
+    if(!department_id || !department_name ){
         return res.status(400).send({ error: users, message: 'Please provide name, username and password'});
     }
 
     try{
-        db.query('UPDATE users SET name = ? ,student_id =? ,email =?,password =? ,role_id = ? WHERE user_id =?', [name, student_id,email,hashedPassword,role_id, user_id],(err, result, field) =>{
+        db.query('UPDATE departments SET department_name = ?  WHERE department_id =?', [department_name, department_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
@@ -114,16 +114,16 @@ router.put('/user/:id', authenticateToken, async(req, res)=>{
 });
 
 //DELETE USER
-router.delete('/user/:id', authenticateToken, (req, res) => {
-    let user_id = req.params.id;
+router.delete('/departmentDel/:id', authenticateToken, (req, res) => {
+    let department_id = req.params.id;
 
-    if( !user_id){
+    if( !department_id){
         return res.status(400).send({ error: true , message: 'Please provide user_id'});
     }
 
     try {
 
-        db.query('DELETE FROM users WHERE user_id =?', user_id,(err, result, field)=>{
+        db.query('DELETE FROM departments WHERE department_id =?', department_id,(err, result, field)=>{
             if (err){
                 console.error('Error Deleting item:');
                 res.status(500).json({ message: 'Internal Server Error'});
