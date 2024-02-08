@@ -106,7 +106,7 @@ router.delete('/deleterole/:id', authenticateToken, (req, res) => {
 
     try {
 
-        db.query('DELETE FROM role WHERE role_id =?', role_id,(err, result, field)=>{
+        db.query('DELETE FROM roles WHERE role_id =?', role_id,(err, result, field)=>{
             if (err){
                 console.error('Error Deleting item:');
                 res.status(500).json({ message: 'Internal Server Error'});
