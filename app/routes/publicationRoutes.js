@@ -97,7 +97,7 @@ router.put('/updatepub/:id', authenticateToken, async(req, res)=>{
 });
 
 //delete publication
-router.delete('/deletepub/:id', authenticateToken, (req, res) => {
+router.delete('/deletepub/:id', (req, res) => {
     let publication_id = req.params.id;
 
     if( !publication_id){
