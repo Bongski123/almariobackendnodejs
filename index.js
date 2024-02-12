@@ -13,6 +13,7 @@ const RolesRoutes = require('./app/routes/roleRoutes');
 const PublicationRoutes = require('./app/routes/publicationRoutes');
 const DocumentRoutes = require('./app/routes/DocumentsRoutes');
 const departmentRoutes = require('./app/routes/departmentRountes');
+const fileRoutes = require('./app/routes/fileRoutes')
 app.use("/assets",express.static("assets"));
 app.use(bodyParser.json());
 app.use('/api', UsersRoutes);
@@ -23,8 +24,10 @@ app.use('/api', RolesRoutes);
 app.use('/api', PublicationRoutes);
 //docuRoutes
 app.use('/api', DocumentRoutes);
+app.use('/api', DocumentRoutes);
 
-app.use('/api', departmentRoutes);
+app.use('/api', fileRoutes);
+
  
  
 
