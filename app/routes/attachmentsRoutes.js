@@ -27,7 +27,7 @@ router.post('/attachmentReg', async (req, res) =>{
         const insertUsersQuery = 'INSERT INTO attachments (file_name,file_path,publication_id) VALUES (?,?,?)';
         await db.promise().execute(insertUsersQuery,[file_name,file_path,publication_id]);
 
-        res.status(201).json({ message: 'Register Department succesfully'});
+        res.status(201).json({ message: 'Register Attachement succesfully'});
     } catch (error) {
 
         console.error('Error registering user:', error);
@@ -41,11 +41,11 @@ router.post('/attachmentReg', async (req, res) =>{
 
 
 //GET ALL THE USERS
-router.get('/departments', authenticateToken, (req, res) => {
+router.get('/attachments', authenticateToken, (req, res) => {
 
     try {
 
-        db.query('SELECT department_id, department_name FROM departments', (err , result)=> {
+        db.query('SELECT file_name, file_path,publication_id FROM attachments', (err , result)=> {
             
             if(err){
                 console.error('Error fetching items:', err);
@@ -61,15 +61,15 @@ router.get('/departments', authenticateToken, (req, res) => {
 });
 
 //GET DETAILS OF 1 USER
-router.get('/department/:id', authenticateToken, (req, res)=> {
-    let department_id =req.params.id;
-    if(!department_id){
+router.get('/attachements/:id', authenticateToken, (req, res)=> {
+    let attachement_id =req.params.id;
+    if(!attachement_id){
         return res.status(400).send({ error: true, message: 'Please provide user_id'});
     }
 
     try{
 
-        db.query('SELECT department_id, department_name FROM departments  WHERE department_id = ?', department_id, (err, result)=>{
+        db.query('SELECT attachement_id, file_name ,file_path, publication_id FROM attachments  WHERE attachment_id = ?', attachement_id, (err, result)=>{
 
             if(err){
                 console.error('Error fetcing items:', err);
@@ -87,17 +87,17 @@ router.get('/department/:id', authenticateToken, (req, res)=> {
 //UPDATE USER
 router.put('/departmentupdate/:id', authenticateToken, async(req, res)=>{
 
-    let department_id =req.params.id;
+    let attachement_id =req.params.id;
 
-    const {department_name} = req.body;
+    const {file_name,file_path} = req.body;
 
 
-    if(!department_id || !department_name ){
+    if(!attachement_id || !file_name,file_path ){
         return res.status(400).send({ error: users, message: 'Please provide name, username and password'});
     }
 
     try{
-        db.query('UPDATE departments SET department_name = ?  WHERE department_id =?', [department_name, department_id],(err, result, field) =>{
+        db.query('UPDATE attachments SET file_name , file_path = ?  WHERE attachement_id =?', [department_name, attachement_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
@@ -114,16 +114,16 @@ router.put('/departmentupdate/:id', authenticateToken, async(req, res)=>{
 });
 
 //DELETE USER
-router.delete('/departmentDel/:id', authenticateToken, (req, res) => {
-    let department_id = req.params.id;
+router.delete('/attachments/:id', authenticateToken, (req, res) => {
+    let attachement_id = req.params.id;
 
-    if( !department_id){
+    if( !attachement_id){
         return res.status(400).send({ error: true , message: 'Please provide user_id'});
     }
 
     try {
 
-        db.query('DELETE FROM departments WHERE department_id =?', department_id,(err, result, field)=>{
+        db.query('DELETE FROM attachments WHERE attachement_id =?', attachement_id,(err, result, field)=>{
             if (err){
                 console.error('Error Deleting item:');
                 res.status(500).json({ message: 'Internal Server Error'});
