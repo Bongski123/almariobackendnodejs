@@ -87,17 +87,17 @@ router.get('/attachements/:id',  (req, res)=> {
 //UPDATE USER
 router.put('/attachmentsUpdate/:id', authenticateToken, async(req, res)=>{
 
-    let attachment_id =req.params.id;
+    let publication_id =req.params.id;
 
     const {file_name,file_path} = req.body;
 
 
-    if(!attachment_id || !file_name,file_path ){
+    if(!publication_id || !file_name,file_path ){
         return res.status(400).send({ error: users, message: 'Please provide name, username and password'});
     }
 
     try{
-        db.query('UPDATE attachments SET file_name , file_path = ?  WHERE attachment_id =?', [file_name,file_path, attachment_id],(err, result, field) =>{
+        db.query('UPDATE attachments SET file_name , file_path = ?  WHERE attachment_id =?', [file_name,file_path, publication_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
