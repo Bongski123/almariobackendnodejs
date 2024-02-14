@@ -18,20 +18,20 @@ const db = require('../config/database');
 
 
 
-router.post('/deptreg', async (req, res) =>{
+router.post('/attachmentReg', async (req, res) =>{
 
     try {
 
-        const {department_name} = req.body;
+        const {file_name,file_path,publication_id} = req.body;
     
-        const insertUsersQuery = 'INSERT INTO departments (department_name) VALUES (?)';
-        await db.promise().execute(insertUsersQuery,[department_name]);
+        const insertUsersQuery = 'INSERT INTO attachments (file_name,file_path,publication_id) VALUES (?,?,?)';
+        await db.promise().execute(insertUsersQuery,[file_name,file_path,publication_id]);
 
         res.status(201).json({ message: 'Register Department succesfully'});
     } catch (error) {
 
         console.error('Error registering user:', error);
-        res.status(500).json({ error: 'Department is already used'});
+        res.status(500).json({ error: 'ducplicate files '});
     }
 
 
