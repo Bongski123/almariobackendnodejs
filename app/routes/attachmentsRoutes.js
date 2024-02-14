@@ -97,7 +97,7 @@ router.put('/attachmentsUpdate/:id', authenticateToken, async(req, res)=>{
     }
 
     try{
-        db.query('UPDATE attachments SET file_name , file_path = ?  WHERE attachment_id =?', [department_name, attachment_id],(err, result, field) =>{
+        db.query('UPDATE attachments SET file_name , file_path = ?  WHERE attachment_id =?', [file_name,file_path, attachment_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
