@@ -41,7 +41,7 @@ router.post('/attachmentReg', async (req, res) =>{
 
 
 //GET ALL THE USERS
-router.get('/attachments', authenticateToken, (req, res) => {
+router.get('/attachments', (req, res) => {
 
     try {
 
@@ -61,7 +61,7 @@ router.get('/attachments', authenticateToken, (req, res) => {
 });
 
 //GET DETAILS OF 1 USER
-router.get('/attachements/:id', authenticateToken, (req, res)=> {
+router.get('/attachements/:id',  (req, res)=> {
     let attachement_id =req.params.id;
     if(!attachement_id){
         return res.status(400).send({ error: true, message: 'Please provide user_id'});
@@ -69,7 +69,7 @@ router.get('/attachements/:id', authenticateToken, (req, res)=> {
 
     try{
 
-        db.query('SELECT attachement_id, file_name ,file_path, publication_id FROM attachments  WHERE attachment_id = ?', attachement_id, (err, result)=>{
+        db.query('SELECT attachment_id, file_name ,file_path, publication_id FROM attachments  WHERE attachment_id = ?', attachement_id, (err, result)=>{
 
             if(err){
                 console.error('Error fetcing items:', err);
@@ -85,19 +85,19 @@ router.get('/attachements/:id', authenticateToken, (req, res)=> {
 });
 
 //UPDATE USER
-router.put('/departmentupdate/:id', authenticateToken, async(req, res)=>{
+router.put('/attachmentsUpdate/:id', authenticateToken, async(req, res)=>{
 
-    let attachement_id =req.params.id;
+    let attachment_id =req.params.id;
 
     const {file_name,file_path} = req.body;
 
 
-    if(!attachement_id || !file_name,file_path ){
+    if(!attachment_id || !file_name,file_path ){
         return res.status(400).send({ error: users, message: 'Please provide name, username and password'});
     }
 
     try{
-        db.query('UPDATE attachments SET file_name , file_path = ?  WHERE attachement_id =?', [department_name, attachement_id],(err, result, field) =>{
+        db.query('UPDATE attachments SET file_name , file_path = ?  WHERE attachment_id =?', [department_name, attachemnt_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
@@ -115,15 +115,15 @@ router.put('/departmentupdate/:id', authenticateToken, async(req, res)=>{
 
 //DELETE USER
 router.delete('/attachments/:id', authenticateToken, (req, res) => {
-    let attachement_id = req.params.id;
+    let attachment_id = req.params.id;
 
-    if( !attachement_id){
+    if( !attachment_id){
         return res.status(400).send({ error: true , message: 'Please provide user_id'});
     }
 
     try {
 
-        db.query('DELETE FROM attachments WHERE attachement_id =?', attachement_id,(err, result, field)=>{
+        db.query('DELETE FROM attachments WHERE attachement_id =?', attachment_id,(err, result, field)=>{
             if (err){
                 console.error('Error Deleting item:');
                 res.status(500).json({ message: 'Internal Server Error'});
