@@ -62,14 +62,14 @@ router.get('/attachments', (req, res) => {
 
 //GET DETAILS OF 1 USER
 router.get('/attachements/:id',  (req, res)=> {
-    let attachement_id =req.params.id;
-    if(!attachement_id){
+    let attachment_id =req.params.id;
+    if(!attachment_id){
         return res.status(400).send({ error: true, message: 'Please provide user_id'});
     }
 
     try{
 
-        db.query('SELECT attachment_id, file_name ,file_path, publication_id FROM attachments  WHERE attachment_id = ?', attachement_id, (err, result)=>{
+        db.query('SELECT attachment_id, file_name ,file_path, publication_id FROM attachments  WHERE attachment_id = ?', attachment_id, (err, result)=>{
 
             if(err){
                 console.error('Error fetcing items:', err);
@@ -97,7 +97,7 @@ router.put('/attachmentsUpdate/:id', authenticateToken, async(req, res)=>{
     }
 
     try{
-        db.query('UPDATE attachments SET file_name , file_path = ?  WHERE attachment_id =?', [department_name, attachemnt_id],(err, result, field) =>{
+        db.query('UPDATE attachments SET file_name , file_path = ?  WHERE attachment_id =?', [department_name, attachment_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
