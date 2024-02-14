@@ -92,7 +92,7 @@ router.put('/attachmentsUpdate/:id', authenticateToken, async(req, res)=>{
     const {file_name,file_path} = req.body;
 
 
-    if(!publication_id || !file_name,file_path ){
+    if(!publication_id || !file_name || !file_path ){
         return res.status(400).send({ error: users, message: 'Please provide name, username and password'});
     }
 
