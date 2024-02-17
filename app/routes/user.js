@@ -22,11 +22,11 @@ router.post('/register', async (req, res) =>{
 
     try {
 
-        const {name, student_id,email,password,role_id} = req.body;
+        const {name, user_id,email,password,role_id} = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const insertUsersQuery = 'INSERT INTO users (name,student_id,email,password,role_id) VALUES (?,?,?,?,?)';
-        await db.promise().execute(insertUsersQuery,[name, student_id,email,hashedPassword,role_id]);
+        const insertUsersQuery = 'INSERT INTO users (name,user_id,email,password,role_id) VALUES (?,?,?,?,?)';
+        await db.promise().execute(insertUsersQuery,[name, user_id,email,hashedPassword,role_id]);
 
         res.status(201).json({ message: 'User registered succesfully'});
     } catch (error) {
@@ -44,9 +44,9 @@ router.post('/register', async (req, res) =>{
 router.post('/login', async(req, res)=>{
 
     try {
-        const {student_id, password} = req.body;
+        const {user_id, password} = req.body;
 
-        const getUserQuery = 'SELECT * FROM users WHERE student_id =?';
+        const getUserQuery = 'SELECT * FROM users WHERE user_id =?';
         const[row] = await db.promise().execute(getUserQuery,[student_id ]);
 
         if(row.length === 0){
@@ -61,7 +61,7 @@ router.post('/login', async(req, res)=>{
 
         } 
 
-        const token = jwt.sign({userId: user.id, student_id: user.student_id,}, secretKey,{ expiresIn: '24h'});
+        const token = jwt.sign({userId: user.id, user_id: user.user_id,}, secretKey,{ expiresIn: '24h'});
 
         res.status(200).json({token});
 
@@ -101,14 +101,14 @@ router.get('/users', (req, res) => {
 
 //GET DETAILS OF 1 USER
 router.get('/user/:id', authenticateToken, (req, res)=> {
-    let user_id =req.params.id;
-    if(!user_id){
+    let id =req.params.id;
+    if(!id){
         return res.status(400).send({ error: true, message: 'Please provide user_id'});
     }
 
     try{
 
-        db.query('SELECT user_id, name ,student_id,email,password,role_id FROM users  WHERE user_id = ?', user_id, (err, result)=>{
+        db.query('SELECT id, name ,user_id,email,password,role_id FROM users  WHERE id = ?', id, (err, result)=>{
 
             if(err){
                 console.error('Error fetcing items:', err);
@@ -126,17 +126,17 @@ router.get('/user/:id', authenticateToken, (req, res)=> {
 //UPDATE USER
 router.put('/user/:id', authenticateToken, async(req, res)=>{
 
-    let user_id =req.params.id;
+    let id =req.params.id;
 
-    const {name, student_id,email, password,role_id} = req.body;
+    const {name, user_id,email, password,role_id} = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    if(!user_id || !name || !student_id || !email || !password || !role_id){
+    if(!user_id || !name || !user_id || !email || !password || !role_id){
         return res.status(400).send({ error: users, message: 'Please provide name, username and password'});
     }
 
     try{
-        db.query('UPDATE users SET name = ? ,student_id =? ,email =?,password =? ,role_id = ? WHERE user_id =?', [name, student_id,email,hashedPassword,role_id, user_id],(err, result, field) =>{
+        db.query('UPDATE users SET name = ? ,user_id =? ,email =?,password =? ,role_id = ? WHERE id =?', [name, user_id,email,hashedPassword,role_id, user_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
@@ -154,15 +154,15 @@ router.put('/user/:id', authenticateToken, async(req, res)=>{
 
 //DELETE USER
 router.delete('/user/:id', authenticateToken, (req, res) => {
-    let user_id = req.params.id;
+    let id = req.params.id;
 
-    if( !user_id){
+    if( !id){
         return res.status(400).send({ error: true , message: 'Please provide user_id'});
     }
 
     try {
 
-        db.query('DELETE FROM users WHERE user_id =?', user_id,(err, result, field)=>{
+        db.query('DELETE FROM users WHERE id =?', id,(err, result, field)=>{
             if (err){
                 console.error('Error Deleting item:');
                 res.status(500).json({ message: 'Internal Server Error'});
