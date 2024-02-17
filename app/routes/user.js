@@ -61,7 +61,7 @@ router.post('/login', async(req, res)=>{
 
         } 
 
-        const token = jwt.sign({userId: user.id, user_id: user.user_id,}, secretKey,{ expiresIn: '24h'});
+        const token = jwt.sign({Id: user.id, user_id: user.user_id,}, secretKey,{ expiresIn: '24h'});
 
         res.status(200).json({token});
 
@@ -124,7 +124,7 @@ router.get('/user/:id', authenticateToken, (req, res)=> {
 });
 
 //UPDATE USER
-router.put('/user/:id', authenticateToken, async(req, res)=>{
+router.put('/user/:id',async(req, res)=>{
 
     let id =req.params.id;
 
