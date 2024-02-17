@@ -84,7 +84,7 @@ router.get('/users', (req, res) => {
 
     try {
 
-        db.query('SELECT user_id, name ,student_id,email,password,role_id FROM users', (err , result)=> {
+        db.query('SELECT *FROM users INNER JOIN roles ON users.role_id = roles.role_id', (err , result)=> {
             
             if(err){
                 console.error('Error fetching items:', err);
