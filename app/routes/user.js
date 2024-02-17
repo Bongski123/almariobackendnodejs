@@ -47,7 +47,7 @@ router.post('/login', async(req, res)=>{
         const {user_id, password} = req.body;
 
         const getUserQuery = 'SELECT * FROM users WHERE user_id =?';
-        const[row] = await db.promise().execute(getUserQuery,[student_id ]);
+        const[row] = await db.promise().execute(getUserQuery,[user_id ]);
 
         if(row.length === 0){
             return res.status(401).json({Error: 'Invalid username or password'});
