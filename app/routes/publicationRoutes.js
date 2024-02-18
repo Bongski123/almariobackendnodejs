@@ -7,10 +7,10 @@ router.post('/PubRegister', async (req, res) =>{
 
     try {
 
-        const { title ,authors,abstract,publication_type,publication_year,user_id, project_id} = req.body;
+        const { title ,authors,abstract,publication_type,publication_year,id, project_id} = req.body;
     
         const insertPublicationQuery = 'INSERT INTO publication ( title, authors,abstract,publication_type,publication_year,user_id,project_id ) VALUES (?,?,?,?,?,?,?)';
-        await db.promise().execute(insertPublicationQuery,[ title, authors,abstract,publication_type,publication_year,user_id,project_id]);
+        await db.promise().execute(insertPublicationQuery,[ title, authors,abstract,publication_type,publication_year,id,project_id]);
 
         res.status(201).json({ message: 'book registered succesfully'});
     } catch (error) {
