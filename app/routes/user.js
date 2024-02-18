@@ -136,7 +136,7 @@ router.put('/user/:id',async(req, res)=>{
     }
 
     try{
-        db.query('UPDATE users SET name = ? ,user_id =? ,email =?,password =? ,role_id = ? WHERE id =?', [name, user_id,email,hashedPassword,role_id, user_id],(err, result, field) =>{
+        db.query('UPDATE users SET name = ? ,user_id =? ,email =?,password =? ,role_id = ? WHERE id =?', [name, user_id,email,hashedPassword,role_id, id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
