@@ -79,14 +79,14 @@ router.put('/projectupdate/:id', authenticateToken, async(req, res)=>{
 
     let project_id =req.params.id;
 
-    const {project_title,project_description,department} = req.body;
+    const {project_title,project_description,department_id} = req.body;
 
-    if(!project_id || !project_title|| !project_description || !department ){
+    if(!project_id || !project_title|| !project_description || !department_id ){
         return res.status(400).send({ error: role , message: 'Please provide  role_code, role_name'});
     }
 
     try{
-        db.query('UPDATE projects SET  project_title =? ,project_description =? ,department =? WHERE role_id =?', [project_title, project_description,department,project_id],(err, result, field) =>{
+        db.query('UPDATE projects SET  project_title =? ,project_description =? ,department_id =? WHERE project_id =?', [project_title, project_description,department_id,project_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);

@@ -80,7 +80,7 @@ router.put('/updatepub/:id', authenticateToken, async(req, res)=>{
     }
 
     try{
-        db.query('UPDATE publication SET title = ? , authors =? , abstract =?, publication_type = ? ,publication_year =? WHERE publication_id =?', [title ,authors,abstract,publication_type, publication_year,id,project_id],(err, result, field) =>{
+        db.query('UPDATE publication SET title = ? , authors =? , abstract =?, publication_type = ? ,publication_year =? ,id =? WHERE publication_id =?', [title ,authors,abstract,publication_type, publication_year,id,project_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
