@@ -34,7 +34,7 @@ router.post('/ProjectRegister', async (req, res) =>{
 
         try {
     
-            db.query('SELECT project_title,project_description,department,id FROM projects', (err , result)=> {
+            db.query('SELECT project_title,project_description,department_id,id FROM projects', (err , result)=> {
                 
                 if(err){
                     console.error('Error fetching items:', err);
@@ -58,7 +58,7 @@ router.post('/ProjectRegister', async (req, res) =>{
     
         try{
     
-            db.query('SELECT project_title,project_description,department,id WHERE project_id = ?', project_id, (err, result)=>{
+            db.query('SELECT project_title,project_description,department_id,id WHERE project_id = ?', project_id, (err, result)=>{
     
                 if(err){
                     console.error('Error fetcing items:', err);
