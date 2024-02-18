@@ -75,7 +75,7 @@ router.put('/updatepub/:id', authenticateToken, async(req, res)=>{
 
     const {title, authors,abstract,publication_type,publication_year} = req.body;
 
-    if(!project_id || !title || !authors || !abstract || !publication_type ||!publication_year || ){
+    if(!project_id || !title || !authors || !abstract || !publication_type ||!publication_year ){
         return res.status(400).send({ error: role , message: 'Please provide  role_code, role_name'});
     }
 
