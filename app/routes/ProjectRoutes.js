@@ -86,7 +86,7 @@ router.put('/projectupdate/:id', authenticateToken, async(req, res)=>{
     }
 
     try{
-        db.query('UPDATE projects SET  project_title =? ,project_description =? ,department =? WHERE role_id =?', [project_name, project_description,department],(err, result, field) =>{
+        db.query('UPDATE projects SET  project_title =? ,project_description =? ,department =? WHERE role_id =?', [project_title, project_description,department,project_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
