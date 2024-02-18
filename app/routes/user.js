@@ -131,7 +131,7 @@ router.put('/user/:id',async(req, res)=>{
     const {name, user_id,email, password,role_id} = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    if(!user_id || !name || !user_id || !email || !password || !role_id){
+    if(!id || !name || !user_id || !email || !password || !role_id){
         return res.status(400).send({ error: users, message: 'Please provide name, username and password'});
     }
 
