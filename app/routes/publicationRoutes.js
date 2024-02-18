@@ -27,7 +27,7 @@ router.post('/PubRegister', async (req, res) =>{
 
         try {
     
-            db.query('SELECT publication_id, title ,abstract,publication_date,publication_type,publication_year, id,project_id FROM publication', (err , result)=> {
+            db.query('SELECT publication_id, title ,authors,abstract,publication_date,publication_type,publication_year, id,project_id FROM publication', (err , result)=> {
                 
                 if(err){
                     console.error('Error fetching items:', err);
@@ -73,14 +73,14 @@ router.put('/updatepub/:id', authenticateToken, async(req, res)=>{
 
     let project_id =req.params.id;
 
-    const {title, authors,abstract,publication_type,publication_year, id} = req.body;
+    const {title, authors,abstract,publication_type,publication_year} = req.body;
 
-    if(!project_id || !title || !authors || !abstract || !publication_type ||!publication_year|| !id ){
+    if(!project_id || !title || !authors || !abstract || !publication_type ||!publication_year ){
         return res.status(400).send({ error: role , message: 'Please provide  role_code, role_name'});
     }
 
     try{
-        db.query('UPDATE publication SET title = ? , authors =? , abstract =?, publication_type = ? ,publication_year =?,id =?  WHERE publication_id =?', [title ,authors,abstract,publication_type,id, project_id],(err, result, field) =>{
+        db.query('UPDATE publication SET title = ? , authors =? , abstract =?, publication_type = ? ,publication_year =? WHERE publication_id =?', [title ,authors,abstract,publication_type, project_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
