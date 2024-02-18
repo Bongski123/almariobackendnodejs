@@ -31,9 +31,8 @@ app.use('/api', RolesRoutes);
 app.use('/api', PublicationRoutes);
 //docuRoutes
 app.use('/api', DocumentRoutes);
-app.use('/api', DocumentRoutes);
-app.use('/api', projectRoutes);
 
+app.use('/api', projectRoutes);
 
 
 app.use("/testAPI",testAPIRouter);
