@@ -6,7 +6,7 @@ const app = express();
 app.use("/assets",express.static("assets"));
 
 app.use(cors());
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const UsersRoutes = require('./app/routes/user');
 const RolesRoutes = require('./app/routes/roleRoutes');
