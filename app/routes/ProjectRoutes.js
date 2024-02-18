@@ -4,12 +4,18 @@ const db = require('../config/database');
 const router = express.Router();
 const { authenticateToken } = require('../middleware/authenticateToken');
 
+
+
+
+
+
+
 router.post('/ProjectRegister', async (req, res) =>{
 
     try {
 
         const {project_title,project_description,department_id,id} = req.body;
-        const insertUserQuery = 'INSERT INTO projects (project_title,project_description,department_id,id) VALUES (?,?,?,?,?)';
+        const insertUserQuery = 'INSERT INTO projects (project_title,project_description,department_id,id) VALUES (?,?,?,?)';
         await db.promise().execute(insertUserQuery,[project_title,project_description,department_id,id]);
 
         res.status(201).json({ message: 'Project registered succesfully'});
@@ -28,7 +34,7 @@ router.post('/ProjectRegister', async (req, res) =>{
 
         try {
     
-            db.query('SELECT project_name,project_description,department,id FROM projects', (err , result)=> {
+            db.query('SELECT project_title,project_description,department,id FROM projects', (err , result)=> {
                 
                 if(err){
                     console.error('Error fetching items:', err);
@@ -52,7 +58,7 @@ router.post('/ProjectRegister', async (req, res) =>{
     
         try{
     
-            db.query('SELECT project_name,project_description,department,id WHERE project_id = ?', project_id, (err, result)=>{
+            db.query('SELECT project_title,project_description,department,id WHERE project_id = ?', project_id, (err, result)=>{
     
                 if(err){
                     console.error('Error fetcing items:', err);
@@ -73,14 +79,14 @@ router.put('/projectupdate/:id', authenticateToken, async(req, res)=>{
 
     let project_id =req.params.id;
 
-    const {project_name,project_description,department} = req.body;
+    const {project_title,project_description,department} = req.body;
 
-    if(!project_id || !project_name || !project_description || !department ){
+    if(!project_id || !project_title|| !project_description || !department ){
         return res.status(400).send({ error: role , message: 'Please provide  role_code, role_name'});
     }
 
     try{
-        db.query('UPDATE projects SET  project_name =? ,project_description =? ,department =? WHERE role_id =?', [project_name, project_description,department],(err, result, field) =>{
+        db.query('UPDATE projects SET  project_title =? ,project_description =? ,department =? WHERE role_id =?', [project_name, project_description,department],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
@@ -97,7 +103,7 @@ router.put('/projectupdate/:id', authenticateToken, async(req, res)=>{
 });
 
 
-router.delete('/deleterole/:id', authenticateToken, (req, res) => {
+router.delete('/deleteproj/:id', authenticateToken, (req, res) => {
     let project_id = req.params.id;
 
     if( !project_id){
