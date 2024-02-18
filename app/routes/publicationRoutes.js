@@ -71,16 +71,16 @@ router.post('/PubRegister', async (req, res) =>{
 //UPDATE publication
 router.put('/updatepub/:id', authenticateToken, async(req, res)=>{
 
-    let project_id =req.params.id;
+    let publication_id =req.params.id;
 
     const {title, authors,abstract,publication_type,publication_year,id} = req.body;
 
-    if(!project_id || !title || !authors || !abstract || !publication_type ||!publication_year || !id){
+    if(!publication_id || !title || !authors || !abstract || !publication_type ||!publication_year || !id){
         return res.status(400).send({ error: role , message: 'Please provide  role_code, role_name'});
     }
 
     try{
-        db.query('UPDATE publication SET title = ? , authors =? , abstract =?, publication_type = ? ,publication_year =? ,id =? WHERE publication_id =?', [title ,authors,abstract,publication_type, publication_year,id,project_id],(err, result, field) =>{
+        db.query('UPDATE publication SET title = ? , authors =? , abstract =?, publication_type = ? ,publication_year =? ,id =? WHERE publication_id =?', [title ,authors,abstract,publication_type, publication_year,id,publication_id],(err, result, field) =>{
 
           if(err){
             console.error('Error updating items:', err);
