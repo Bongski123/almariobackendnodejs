@@ -45,7 +45,7 @@ router.get('/attachments', (req, res) => {
 
     try {
 
-        db.query('SELECT file_name, file_path,publication_id FROM attachments', (err , result)=> {
+        db.query('SELECT file_name,docs FROM attachments', (err , result)=> {
             
             if(err){
                 console.error('Error fetching items:', err);
@@ -61,7 +61,7 @@ router.get('/attachments', (req, res) => {
 });
 
 //GET DETAILS OF 1 USER
-router.get('/attachements/:id',  (req, res)=> {
+router.get('/attachments/:id',  (req, res)=> {
     let attachment_id =req.params.id;
     if(!attachment_id){
         return res.status(400).send({ error: true, message: 'Please provide user_id'});
@@ -69,7 +69,7 @@ router.get('/attachements/:id',  (req, res)=> {
 
     try{
 
-        db.query('SELECT attachment_id, file_name ,file_path, publication_id FROM attachments  WHERE attachment_id = ?', attachment_id, (err, result)=>{
+        db.query('SELECT file_name , docs FROM attachments  WHERE attachment_id = ?', attachment_id, (err, result)=>{
 
             if(err){
                 console.error('Error fetcing items:', err);

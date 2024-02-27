@@ -7,10 +7,10 @@ router.post('/PubRegister', async (req, res) =>{
 
     try {
 
-        const { title ,authors,abstract,publication_type,publication_year,id, project_id} = req.body;
+        const { title ,authors,abstract,publication_date,publication_type,citation,seriesnamPaperNum,relatedlink,file,id} = req.body;
     
-        const insertPublicationQuery = 'INSERT INTO publication ( title, authors,abstract,publication_type,publication_year,id,project_id ) VALUES (?,?,?,?,?,?,?)';
-        await db.promise().execute(insertPublicationQuery,[ title, authors,abstract,publication_type,publication_year,id,project_id]);
+        const insertPublicationQuery = 'INSERT INTO publication ( title, authors,abstract,publication_type,id) VALUES (?,?,?,?,?,?)';
+        await db.promise().execute(insertPublicationQuery,[ title, authors,abstract,publication_type,id]);
 
         res.status(201).json({ message: 'book registered succesfully'});
     } catch (error) {
@@ -27,7 +27,7 @@ router.post('/PubRegister', async (req, res) =>{
 
         try {
     
-            db.query('SELECT publication_id, title ,authors,abstract,publication_date,publication_type,publication_year, id,project_id FROM publication', (err , result)=> {
+            db.query('SELECT * FROM publication INNER JOIN users ON publication.id = users.id', (err , result)=> {
                 
                 if(err){
                     console.error('Error fetching items:', err);
