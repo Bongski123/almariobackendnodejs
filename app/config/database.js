@@ -2,7 +2,7 @@
 const mysql = require('mysql2');
 
 const db = mysql.createPool({
-    host: 'sql6.freesqldatabase.com',
+    host: 'sql6.freemysqlhosting.net',
     user: 'sql6681336',
     password: 'M8rzqbeAXv',
     database: 'sql6681336',

@@ -153,7 +153,7 @@ router.put('/user/:id',async(req, res)=>{
 });
 
 //DELETE USER
-router.delete('/user/:id', authenticateToken, (req, res) => {
+router.delete('/user/:id',  (req, res) => {
     let id = req.params.id;
 
     if( !id){
