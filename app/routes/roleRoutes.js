@@ -24,7 +24,7 @@ router.post('/RoleRegister', async (req, res) =>{
     });
     
 
-    router.get('/roles', authenticateToken, (req, res) => {
+    router.get('/roles',  (req, res) => {
 
         try {
     
@@ -44,7 +44,7 @@ router.post('/RoleRegister', async (req, res) =>{
     });
     
 
-    router.get('/roleget1/:id', authenticateToken, (req, res)=> {
+    router.get('/roleget1/:id',  (req, res)=> {
         let role_id =req.params.id;
         if(!role_id){
             return res.status(400).send({ error: true, messgae: 'Please provide user_id'});
@@ -69,7 +69,7 @@ router.post('/RoleRegister', async (req, res) =>{
 
     
 //UPDATE USER
-router.put('/roleupdate/:id', authenticateToken, async(req, res)=>{
+router.put('/roleupdate/:id', async(req, res)=>{
 
     let role_id =req.params.id;
 
@@ -97,7 +97,7 @@ router.put('/roleupdate/:id', authenticateToken, async(req, res)=>{
 });
 
 
-router.delete('/deleterole/:id', authenticateToken, (req, res) => {
+router.delete('/deleterole/:id', (req, res) => {
     let role_id = req.params.id;
 
     if( !role_id){
