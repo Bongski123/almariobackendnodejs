@@ -18,7 +18,7 @@ const db = require('../config/database');
 
 
 
-router.post('/register', async (req, res) =>{
+router.post('/register',authenticateToken, async (req, res) =>{
 
     try {
 
@@ -41,7 +41,7 @@ router.post('/register', async (req, res) =>{
 
 
 
-router.post('/login', async(req, res)=>{
+router.post('/login',authenticateToken, async(req, res)=>{
 
     try {
         const {user_id, password} = req.body;
@@ -80,7 +80,7 @@ router.post('/login', async(req, res)=>{
 
 
 //GET ALL THE USERS
-router.get('/users', (req, res) => {
+router.get('/users',authenticateToken, (req, res) => {
 
     try {
 
@@ -124,7 +124,7 @@ router.get('/user/:id', authenticateToken, (req, res)=> {
 });
 
 //UPDATE USER
-router.put('/user/:id',async(req, res)=>{
+router.put('/user/:id',authenticateToken,async(req, res)=>{
 
     let id =req.params.id;
 
@@ -153,7 +153,7 @@ router.put('/user/:id',async(req, res)=>{
 });
 
 //DELETE USER
-router.delete('/user/:id',  (req, res) => {
+router.delete('/user/:id',authenticateToken,  (req, res) => {
     let id = req.params.id;
 
     if( !id){
