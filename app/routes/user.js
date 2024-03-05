@@ -41,7 +41,7 @@ router.post('/register',authenticateToken, async (req, res) =>{
 
 
 
-router.post('/login',authenticateToken, async(req, res)=>{
+router.post('/login', async(req, res)=>{
 
     try {
         const {user_id, password} = req.body;
